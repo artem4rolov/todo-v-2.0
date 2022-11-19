@@ -1,0 +1,37 @@
+* {
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    // box-sizing: border-box;
+    font-family: "Roboto", -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.todo {
+  position: absolute;
+  height: 530px;
+  width: 750px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  box-shadow: 5px 5px 21px #dbd4d4;
+  border-radius: 10px;
+  border: 1px solid #f3f6f8;
+
+  &__list {
+    background-color: #f4f6f8;
+    padding: 60px 20px;
+    width: 200px;
+    height: calc(100% - 120px);
+    border-right: 1px solid #d5d5d5;
+  }
+
+  &__tasks {
+    flex: 1;
+  }
+}
