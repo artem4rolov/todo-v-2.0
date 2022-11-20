@@ -1,5 +1,6 @@
 import React from "react";
 
+import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
 
 function App() {
@@ -33,14 +34,71 @@ function App() {
         <List
           items={[
             {
-              name: "первый",
+              name: "Фильмы и сериалы",
+              color: "blue",
+              active: true,
             },
             {
-              name: "второй",
+              name: "Купить",
+              color: "lime",
+              active: false,
+            },
+            {
+              name: "YouTube",
+              color: "red",
+              active: false,
+            },
+          ]}
+          isRemovable
+        />
+
+        {/* кнопка добавить задачу */}
+        <AddList
+          colors={[
+            {
+              id: 1,
+              hex: "#C9D1D3",
+              name: "grey",
+            },
+            {
+              id: 2,
+              hex: "#42B883",
+              name: "green",
+            },
+            {
+              id: 3,
+              hex: "#64C4ED",
+              name: "blue",
+            },
+            {
+              id: 4,
+              hex: "#FFBBCC",
+              name: "pink",
+            },
+            {
+              id: 5,
+              hex: "#B6E6BD",
+              name: "lime",
+            },
+            {
+              id: 6,
+              hex: "#C355F5",
+              name: "purple",
+            },
+            {
+              id: 7,
+              hex: "#110133",
+              name: "black",
+            },
+            {
+              id: 8,
+              hex: "#FF6464",
+              name: "red",
             },
           ]}
         />
       </div>
+
       <div className="todo__tasks">todo tasks</div>
     </div>
   );
