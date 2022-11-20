@@ -2,6 +2,7 @@ import React from "react";
 
 import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
+import Task from "./components/Task/Task.jsx";
 
 function App() {
   return (
@@ -99,7 +100,9 @@ function App() {
         />
       </div>
 
-      <div className="todo__tasks">todo tasks</div>
+      <div className="todo__tasks">
+        <Task />
+      </div>
     </div>
   );
 }
