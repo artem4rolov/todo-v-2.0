@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import checkSvg from "../../assets/img/check.svg";
 import editSvg from "../../assets/img/edit.svg";
+import AddTask from "../AddTask/AddTask";
 
 import "./Task.scss";
 
@@ -43,6 +44,7 @@ export default function Task({ tasks }) {
           </div>
         );
       })}
+      <AddTask />
     </div>
   );
 }

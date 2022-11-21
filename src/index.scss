@@ -42,13 +42,19 @@
   border: 1px solid #efefef;
   border-radius: 4px;
   padding: 8px 10px;
+
+  transition: border 0.15s ease-in-out;
+
+  &:focus {
+    border: 1px solid black;
+  }
 }
 
 .button {
   cursor: pointer;
   color: #fff;
   font-size: 14px;
-  width: 200px;
+  // width: 200px;
   height: 37px;
   border: none;
   background: #4dd599;
