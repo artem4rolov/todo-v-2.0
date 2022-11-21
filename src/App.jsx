@@ -101,7 +101,28 @@ function App() {
       </div>
 
       <div className="todo__tasks">
-        <Task />
+        <Task
+          tasks={[
+            {
+              id: 1,
+              listId: 2,
+              text: "Изучить JavaScript",
+              completed: true,
+            },
+            {
+              id: 2,
+              listId: 2,
+              text: "Изучить паттерны проектирования",
+              completed: false,
+            },
+            {
+              id: 3,
+              listId: 2,
+              text: "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
+              completed: true,
+            },
+          ]}
+        />
       </div>
     </div>
   );
