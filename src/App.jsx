@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
 import Task from "./components/Task/Task.jsx";
 
 function App() {
+  const [lists, setLists] = useState(null);
+
   return (
     <div className="todo">
       <div className="todo__list">
@@ -37,12 +40,12 @@ function App() {
             {
               name: "Фильмы и сериалы",
               color: "blue",
-              active: true,
+              active: false,
             },
             {
-              name: "Купить",
+              name: "Фронтенд",
               color: "lime",
-              active: false,
+              active: true,
             },
             {
               name: "YouTube",
