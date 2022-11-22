@@ -7,6 +7,35 @@ import Task from "./components/Task/Task.jsx";
 
 function App() {
   const [lists, setLists] = useState(null);
+  const [colors, setColors] = useState(null);
+  const [activeItem, setActiveItem] = useState(false);
+
+  // при каждомв
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/lists?_expand=color")
+      .then(({ data }) => setLists(data))
+      .catch(() => {
+        alert("Не удалось загрузить список дел!");
+      });
+
+    axios
+      .get("http://localhost:3001/colors")
+      .then(({ data }) => setColors(data))
+      .catch(() => {
+        alert("Не удалось загрузить список цветов!");
+      });
+  }, []);
+
+  const onAddList = (list) => {
+    const newList = [...lists, list];
+    setLists(newList);
+  };
+
+  const onDeleteList = (list) => {
+    const newList = lists.filter((item) => item.id !== list.id);
+    setLists(newList);
+  };
 
   return (
     <div className="todo">
@@ -36,71 +65,15 @@ function App() {
 
         {/* остальные списки */}
         <List
-          items={[
-            {
-              name: "Фильмы и сериалы",
-              color: "blue",
-              active: false,
-            },
-            {
-              name: "Фронтенд",
-              color: "lime",
-              active: true,
-            },
-            {
-              name: "YouTube",
-              color: "red",
-              active: false,
-            },
-          ]}
+          onClickItem={(item) => setActiveItem(item)}
+          activeItem={activeItem}
+          items={lists}
           isRemovable
+          deleteList={onDeleteList}
         />
 
         {/* кнопка добавить задачу */}
-        <AddList
-          colors={[
-            {
-              id: 1,
-              hex: "#C9D1D3",
-              name: "grey",
-            },
-            {
-              id: 2,
-              hex: "#42B883",
-              name: "green",
-            },
-            {
-              id: 3,
-              hex: "#64C4ED",
-              name: "blue",
-            },
-            {
-              id: 4,
-              hex: "#FFBBCC",
-              name: "pink",
-            },
-            {
-              id: 5,
-              hex: "#B6E6BD",
-              name: "lime",
-            },
-            {
-              id: 6,
-              hex: "#C355F5",
-              name: "purple",
-            },
-            {
-              id: 7,
-              hex: "#110133",
-              name: "black",
-            },
-            {
-              id: 8,
-              hex: "#FF6464",
-              name: "red",
-            },
-          ]}
-        />
+        <AddList colors={colors} addList={onAddList} />
       </div>
 
       <div className="todo__tasks">
