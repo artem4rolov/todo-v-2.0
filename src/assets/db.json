@@ -1,17 +1,48 @@
 {
   "lists": [
     {
-      "name": "Работа",
-      "colorId": 1,
-      "id": 2
+      "name": "Фронтенд",
+      "colorId": 2,
+      "id": 1
     },
     {
-      "name": "123",
-      "colorId": 2,
-      "id": 3
+      "name": "тест",
+      "colorId": 5,
+      "id": 2
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1,
+      "listId": 1,
+      "text": "Изучить JavaScript",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "listId": 1,
+      "text": "Изучить паттерны проектирования",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "listId": 1,
+      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
+      "completed": true
+    },
+    {
+      "text": "3",
+      "completed": false,
+      "listId": 2,
+      "id": 4
+    },
+    {
+      "text": "5",
+      "completed": false,
+      "listId": 1,
+      "id": 5
+    }
+  ],
   "colors": [
     {
       "id": 1,

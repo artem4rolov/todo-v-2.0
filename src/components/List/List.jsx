@@ -14,7 +14,7 @@ const List = ({ items, isRemovable, deleteList, onClickItem, activeItem }) => {
       window.confirm(`Вы действительно хотите удалить список ${list.name}?`)
     ) {
       setLoading(true);
-      list.name = "удаление...";
+      list.name = "Удаление...";
       axios
         .delete("http://localhost:3001/lists/" + list.id)
         .then(() => {

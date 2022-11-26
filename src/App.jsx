@@ -10,10 +10,10 @@ function App() {
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(false);
 
-  // при каждомв
+  // при каждом обновлении lists (добавление, удаление, изменение списков), обновляем списки с задачами
   useEffect(() => {
     axios
-      .get("http://localhost:3001/lists?_expand=color")
+      .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
       .then(({ data }) => setLists(data))
       .catch(() => {
         alert("Не удалось загрузить список дел!");
@@ -30,11 +30,16 @@ function App() {
   const onAddList = (list) => {
     const newList = [...lists, list];
     setLists(newList);
+    // console.log(lists);
   };
 
-  const onDeleteList = (list) => {
-    const newList = lists.filter((item) => item.id !== list.id);
+  const onAddTask = (listId, taskObj) => {
+    const newTask = lists
+      .filter((list) => list.id === listId)[0]
+      .tasks.push(taskObj);
+    const newList = [...lists, newTask];
     setLists(newList);
+    console.log(listId);
   };
 
   return (
@@ -69,7 +74,12 @@ function App() {
           activeItem={activeItem}
           items={lists}
           isRemovable
-          deleteList={onDeleteList}
+          deleteList={(list) => {
+            const newList = lists.filter((item) => item.id !== list.id);
+            setLists(newList);
+            // устанавливаем активный список в null, чтобы не отображать задачи несуществующего списка
+            setActiveItem(null);
+          }}
         />
 
         {/* кнопка добавить задачу */}
@@ -77,28 +87,7 @@ function App() {
       </div>
 
       <div className="todo__tasks">
-        <Task
-          tasks={[
-            {
-              id: 1,
-              listId: 2,
-              text: "Изучить JavaScript",
-              completed: true,
-            },
-            {
-              id: 2,
-              listId: 2,
-              text: "Изучить паттерны проектирования",
-              completed: false,
-            },
-            {
-              id: 3,
-              listId: 2,
-              text: "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-              completed: true,
-            },
-          ]}
-        />
+        {activeItem && <Task list={activeItem} addTask={onAddTask} />}
       </div>
     </div>
   );
