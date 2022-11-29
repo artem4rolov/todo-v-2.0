@@ -1,24 +1,26 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import checkSvg from "../../assets/img/check.svg";
 import editSvg from "../../assets/img/edit.svg";
 import AddTask from "../AddTask/AddTask";
 
 import "./Task.scss";
 
-export default function Task({ list, onAddTask }) {
+export default function Task({ list, onAddTaskInApp }) {
   const [isChecked, setIsChecked] = useState(false);
 
-  // useEffect(() => {
-  //   axios
-  //     .get()
-  // }, [])
+  const checkOutTask = (task) => {};
+
+  // передаем функцию onAddInApp в компонент App, для того чтобы внести новую task в state
+  const onAddInApp = (activeList, taskObj) => {
+    // передаем activeList ()
+    onAddTaskInApp(activeList, taskObj);
+  };
 
   return (
     <div className="task__block">
       <div className="task__block-title">
-        <h1 style={{ color: list.color.name }}>{list.name}</h1>
+        <h1 style={{ color: list.color.hex }}>{list.name}</h1>
         <img src={editSvg} alt="" />
       </div>
 
@@ -27,7 +29,12 @@ export default function Task({ list, onAddTask }) {
           return (
             <div key={task.id} className="task__block-item">
               <div className="task__block-item-check">
-                <input type="checkbox" id={`${task.id}`} />
+                <input
+                  type="checkbox"
+                  id={`${task.id}`}
+                  checked={isChecked}
+                  onChange={() => setIsChecked(isChecked)}
+                />
                 <label htmlFor={`${task.id}`}>
                   <svg
                     width="11"
@@ -54,7 +61,7 @@ export default function Task({ list, onAddTask }) {
       ) : (
         <p>Нет задач</p>
       )}
-      <AddTask list={list} onAddTask={onAddTask} />
+      <AddTask list={list} onAddInTask={onAddInApp} />
     </div>
   );
 }

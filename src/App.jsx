@@ -33,13 +33,15 @@ function App() {
     // console.log(lists);
   };
 
-  const onAddTask = (listId, taskObj) => {
-    const newTask = lists
-      .filter((list) => list.id === listId)[0]
-      .tasks.push(taskObj);
-    const newList = [...lists, newTask];
+  const onAddTask = (activeList, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === activeList.id) {
+        item.tasks = [...item.tasks, taskObj];
+      }
+      return item;
+    });
     setLists(newList);
-    console.log(listId);
+    // console.log(newList);
   };
 
   return (
@@ -87,7 +89,7 @@ function App() {
       </div>
 
       <div className="todo__tasks">
-        {activeItem && <Task list={activeItem} addTask={onAddTask} />}
+        {activeItem && <Task list={activeItem} onAddTaskInApp={onAddTask} />}
       </div>
     </div>
   );

@@ -33,6 +33,12 @@
       margin-right: 10px;
       padding: 10px 20px;
 
+      &:nth-child(2) {
+        &:disabled {
+          background-color: #9c9c9c;
+        }
+      }
+
       &:nth-child(3) {
         background: #f4f6f8;
         color: #9c9c9c;

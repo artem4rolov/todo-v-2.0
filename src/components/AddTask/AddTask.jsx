@@ -5,7 +5,7 @@ import addTaskSvg from "../../assets/img/add.svg";
 
 import "./AddTask.scss";
 
-export default function AddTask({ list, onAddTask }) {
+export default function AddTask({ list, onAddInTask }) {
   const [showAddTask, setShowAddTask] = useState(false);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false); // смена текста кнопки при добавлении нового списка
@@ -31,8 +31,9 @@ export default function AddTask({ list, onAddTask }) {
         listId: list.id,
       })
       .then(({ data }) => {
-        // добавляем новый объект задачи в state
-        onAddTask(list.id, data);
+        // передаем новый объект задачи в Tasks.jsx, затем в App.js (в стейт)
+        onAddInTask(list, data);
+        setLoading(false);
       })
       .catch((err) => {
         alert("Не удалось добавить список!");
@@ -62,12 +63,13 @@ export default function AddTask({ list, onAddTask }) {
             className="field"
           />
           <button
+            disabled={loading ? true : false}
             onClick={() => {
               addTask(inputText);
             }}
             className="button"
           >
-            Добавить задачу
+            {loading ? "Добавление..." : "Добавить задачу"}
           </button>
           <button onClick={() => setShowAddTask(false)} className="button">
             Отмена

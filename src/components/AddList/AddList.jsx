@@ -83,7 +83,11 @@ export default function AddList({ colors, addList }) {
                 })
               : null}
           </div>
-          <button onClick={() => onAddList()} className="button">
+          <button
+            disabled={loading ? true : false}
+            onClick={() => onAddList()}
+            className="button"
+          >
             {!loading ? "Добавить список" : "Добавление..."}
           </button>
           <img

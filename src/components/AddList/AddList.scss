@@ -58,6 +58,10 @@
   button {
     margin-top: 10px;
     width: 100%;
+
+    &:disabled {
+      background-color: #9c9c9c;
+    }
   }
 
   input {
