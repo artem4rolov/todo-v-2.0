@@ -11,24 +11,14 @@
       "id": 2
     },
     {
-      "name": "4",
-      "colorId": 5,
+      "name": "3",
+      "colorId": 3,
       "id": 3
     },
     {
-      "name": "5",
-      "colorId": 6,
-      "id": 4
-    },
-    {
-      "name": "1",
-      "colorId": 8,
-      "id": 5
-    },
-    {
-      "name": "2",
+      "name": "4",
       "colorId": 4,
-      "id": 6
+      "id": 4
     }
   ],
   "tasks": [
@@ -36,7 +26,7 @@
       "id": 1,
       "listId": 1,
       "text": "Изучить JavaScript",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
@@ -51,19 +41,13 @@
       "completed": true
     },
     {
-      "text": "3",
-      "completed": false,
-      "listId": 2,
-      "id": 4
-    },
-    {
-      "text": "3",
+      "text": "5",
       "completed": false,
       "listId": 2,
       "id": 5
     },
     {
-      "text": "1",
+      "text": "2",
       "completed": false,
       "listId": 3,
       "id": 6
@@ -71,38 +55,20 @@
     {
       "text": "3",
       "completed": false,
-      "listId": 3,
+      "listId": 1,
       "id": 7
     },
     {
-      "text": "5",
+      "text": "2",
       "completed": false,
-      "listId": 2,
+      "listId": 4,
       "id": 8
-    },
-    {
-      "text": "2",
-      "completed": false,
-      "listId": 5,
-      "id": 9
-    },
-    {
-      "text": "2",
-      "completed": false,
-      "listId": 5,
-      "id": 10
     },
     {
       "text": "3",
       "completed": false,
-      "listId": 6,
-      "id": 11
-    },
-    {
-      "text": "1",
-      "completed": false,
-      "listId": 6,
-      "id": 12
+      "listId": 1,
+      "id": 9
     }
   ],
   "colors": [

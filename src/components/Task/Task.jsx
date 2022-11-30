@@ -7,9 +7,29 @@ import AddTask from "../AddTask/AddTask";
 import "./Task.scss";
 
 export default function Task({ list, onAddTaskInApp }) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState("");
 
-  const checkOutTask = (task) => {};
+  // useEffect(() => {
+  //   checkOutTask();
+  // });
+
+  const checkOutTask = (task) => {
+    axios
+      .patch(`http://localhost:3001/tasks?listId=${list.id}`)
+      .then(({ data }) => {
+        const taskStatus = data.filter((item) => item.id === task.id)[0]
+          .completed;
+      });
+
+    // .then(({ data }) => {
+    //   const tasksInBase = data.filter(
+    //     (taskInBase) => taskInBase.listId === list.id
+    //   );
+    //   const taskStatus = tasksInBase.filter((item) => item.id === task.id)[0]
+    //     .completed;
+    //   setIsChecked(taskStatus);
+    // });
+  };
 
   // передаем функцию onAddInApp в компонент App, для того чтобы внести новую task в state
   const onAddInApp = (activeList, taskObj) => {
@@ -32,10 +52,14 @@ export default function Task({ list, onAddTaskInApp }) {
                 <input
                   type="checkbox"
                   id={`${task.id}`}
-                  checked={isChecked}
-                  onChange={() => setIsChecked(isChecked)}
+                  checked={task.completed}
+                  onChange={() => checkOutTask(task)}
+                  // onClick={() => checkOutTask(task)}
                 />
-                <label htmlFor={`${task.id}`}>
+                <label
+                  htmlFor={`${task.id}`}
+                  // onClick={(e) => console.log(e.target)}
+                >
                   <svg
                     width="11"
                     height="8"

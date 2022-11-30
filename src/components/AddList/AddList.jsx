@@ -30,10 +30,12 @@ export default function AddList({ colors, addList }) {
         // после фильтрации colors по id, у нас остается массив colors с одним объектом
         // чтобы обратиться к этому объекту, пишем [0], т.к. он один в массиве, затем
         // обращаемся к свойству этого объекта name, чтобы получить название цвета
-        const color = colors.filter((item) => item.id === selectedColor)[0]
-          .name;
+        const color = colors.filter((item) => item.id === selectedColor)[0];
         // формируем новый объект списка с name, colorId, color: {color.name}, id задаст автоматически сервер
-        const listObj = { ...data, color: { name: color } };
+        const listObj = {
+          ...data,
+          color: { name: color.name, hex: color.hex },
+        };
         // добавляем новый объект списка в state
         addList(listObj);
       })

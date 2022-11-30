@@ -36,7 +36,14 @@ function App() {
   const onAddTask = (activeList, taskObj) => {
     const newList = lists.map((item) => {
       if (item.id === activeList.id) {
-        item.tasks = [...item.tasks, taskObj];
+        // проверяем, есть ли вообще массив tasks в конкретном списке list по id
+        if (item.tasks) {
+          // если есть - пихаем туда новую таску
+          item.tasks = [...item.tasks, taskObj];
+        } else {
+          // если нет таск в нашем списке - создаем ее, она будет первая
+          item.tasks = [taskObj];
+        }
       }
       return item;
     });
