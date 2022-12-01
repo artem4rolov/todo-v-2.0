@@ -51,6 +51,16 @@ function App() {
     // console.log(newList);
   };
 
+  const onDeleteTask = (activeList, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === activeList.id) {
+        item.tasks = item.tasks.filter((item) => item.id !== taskObj.id);
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+
   return (
     <div className="todo">
       <div className="todo__list">
@@ -96,7 +106,15 @@ function App() {
       </div>
 
       <div className="todo__tasks">
-        {activeItem && <Task list={activeItem} onAddTaskInApp={onAddTask} />}
+        {activeItem && (
+          <Task
+            list={activeItem}
+            onAddTaskInApp={onAddTask}
+            onDeleteTask={(activeList, taskObj) => {
+              onDeleteTask(activeList, taskObj);
+            }}
+          />
+        )}
       </div>
     </div>
   );

@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import editSvg from "../../assets/img/edit.svg";
+import removeSvg from "../../assets/img/remove.svg";
 import AddTask from "../AddTask/AddTask";
 
 import "./Task.scss";
 
-export default function Task({ list, onAddTaskInApp }) {
+export default function Task({ list, onAddTaskInApp, onDeleteTask }) {
   const [isChecked, setIsChecked] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   checkOutTask();
@@ -31,6 +33,27 @@ export default function Task({ list, onAddTaskInApp }) {
     // });
   };
 
+  const deleteTask = (task) => {
+    if (window.confirm(`Вы хотите удалить задачу ${task.text}?`)) {
+      setIsLoading(true);
+      task.text = "удаление...";
+      axios
+        .delete(`http://localhost:3001/tasks/${task.id}`)
+        .then((data) => {
+          // console.log(data);
+          onDeleteTask(list, task);
+        })
+        .catch(() => {
+          alert("Не удалось удалить задачу!");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      return;
+    }
+  };
+
   // передаем функцию onAddInApp в компонент App, для того чтобы внести новую task в state
   const onAddInApp = (activeList, taskObj) => {
     // передаем activeList ()
@@ -43,7 +66,7 @@ export default function Task({ list, onAddTaskInApp }) {
         <h1 style={{ color: list.color.hex }}>{list.name}</h1>
         <img src={editSvg} alt="" />
       </div>
-
+      {list.tasks === 0 && <p>Нет задач</p>}
       {list.tasks ? (
         list.tasks.map((task) => {
           return (
@@ -79,6 +102,12 @@ export default function Task({ list, onAddTaskInApp }) {
               </div>
 
               <span className="task__block-item-text">{task.text}</span>
+              <img
+                className="task__block-item-remove"
+                onClick={() => deleteTask(task)}
+                src={removeSvg}
+                alt="remove item"
+              />
             </div>
           );
         })

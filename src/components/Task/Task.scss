@@ -36,16 +36,39 @@
   }
 
   &-item {
+    cursor: pointer;
     display: flex;
     align-items: center;
     margin-top: 20px;
 
     span {
+      flex: 1;
       margin-left: 15px;
       font-weight: 500;
       font-size: 16px;
       line-height: 19px;
       color: #000000;
+    }
+
+    &:hover &-remove {
+      opacity: 0.2;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      &:active {
+        opacity: 1;
+      }
+    }
+
+    &-remove {
+      opacity: 0;
+
+      width: 13px;
+      height: 13px;
+
+      transition: opacity 0.09s ease-in-out;
     }
 
     &-check {
