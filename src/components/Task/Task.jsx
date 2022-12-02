@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import editSvg from "../../assets/img/edit.svg";
 import removeSvg from "../../assets/img/remove.svg";
@@ -11,6 +11,7 @@ export default function Task({
   list,
   onAddTaskInApp,
   onDeleteTask,
+  onCompleteTask,
   withoutEmpty,
   onEditTitle,
 }) {
@@ -31,22 +32,9 @@ export default function Task({
     }
   };
 
-  const checkOutTask = (task) => {
-    axios
-      .patch(`http://localhost:3001/tasks?listId=${list.id}`)
-      .then(({ data }) => {
-        const taskStatus = data.filter((item) => item.id === task.id)[0]
-          .completed;
-      });
-
-    // .then(({ data }) => {
-    //   const tasksInBase = data.filter(
-    //     (taskInBase) => taskInBase.listId === list.id
-    //   );
-    //   const taskStatus = tasksInBase.filter((item) => item.id === task.id)[0]
-    //     .completed;
-    //   setIsChecked(taskStatus);
-    // });
+  const onChangeCheckbox = (e, task) => {
+    // передаем в App.jsx id нашего списка, id задачи, которую отмечаем, и объект события e.target.checked для инпутов
+    onCompleteTask(list.id, task.id, e.target.checked);
   };
 
   const deleteTask = (task) => {
@@ -94,7 +82,7 @@ export default function Task({
                     type="checkbox"
                     id={`${task.id}`}
                     checked={task.completed}
-                    onChange={() => checkOutTask(task)}
+                    onChange={(e) => onChangeCheckbox(e, task)}
                     // onClick={() => checkOutTask(task)}
                   />
                   <label

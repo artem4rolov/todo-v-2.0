@@ -42,7 +42,7 @@
     },
     {
       "text": "Анжуменя",
-      "completed": false,
+      "completed": true,
       "listId": 2,
       "id": 10
     },
@@ -53,10 +53,22 @@
       "id": 11
     },
     {
-      "text": "1",
+      "text": "Приседаня",
       "completed": false,
       "listId": 2,
       "id": 12
+    },
+    {
+      "text": "Бегит",
+      "completed": false,
+      "listId": 2,
+      "id": 13
+    },
+    {
+      "text": "Пакругу",
+      "completed": false,
+      "listId": 2,
+      "id": 14
     }
   ],
   "colors": [
