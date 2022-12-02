@@ -57,7 +57,8 @@ export default function AddTask({ list, onAddInTask }) {
       ) : (
         <div className="add__task-form">
           <input
-            onInput={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(e.target.value)}
+            // onInput={(e) => setInputText(e.target.value)}
             value={inputText}
             type="text"
             className="field"

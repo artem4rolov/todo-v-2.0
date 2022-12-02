@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Route, useHistory } from "react-router-dom";
 
 import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
@@ -9,6 +10,7 @@ function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(false);
+  let history = useHistory();
 
   // при каждом обновлении lists (добавление, удаление, изменение списков), обновляем списки с задачами
   useEffect(() => {
@@ -54,6 +56,7 @@ function App() {
   const onDeleteTask = (activeList, taskObj) => {
     const newList = lists.map((item) => {
       if (item.id === activeList.id) {
+        // выбираем только те дела, id которых не совпадает с тем, которое мы удаляем (все id, кроме taskObj.id)
         item.tasks = item.tasks.filter((item) => item.id !== taskObj.id);
       }
       return item;
@@ -61,13 +64,39 @@ function App() {
     setLists(newList);
   };
 
+  const onEditListTitle = (id, title) => {
+    const newList = lists.map((item) => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+
+  useEffect(() => {
+    const listId = history.location.pathname.split("lists/")[1];
+    if (lists) {
+      const activeList = lists.find((list) => list.id === Number(listId));
+      setActiveItem(activeList);
+    }
+    // console.log(history.location.pathname.split("lists/")[1]);
+  }, [lists, history.location.pathname]);
+
+  // console.log(history);
+
   return (
     <div className="todo">
       <div className="todo__list">
         {/* кнопка Все задачи */}
         <List
+          activeItem={activeItem}
+          onClickItem={(list) => {
+            history.push("/");
+          }}
           items={[
             {
+              // active: true,
               name: "Все задачи",
               icon: (
                 <svg
@@ -89,7 +118,10 @@ function App() {
 
         {/* остальные списки */}
         <List
-          onClickItem={(item) => setActiveItem(item)}
+          onClickItem={(list) => {
+            history.push(`/lists/${list.id}`);
+            // setActiveItem(list);
+          }}
           activeItem={activeItem}
           items={lists}
           isRemovable
@@ -97,24 +129,38 @@ function App() {
             const newList = lists.filter((item) => item.id !== list.id);
             setLists(newList);
             // устанавливаем активный список в null, чтобы не отображать задачи несуществующего списка
-            setActiveItem(null);
+            // setActiveItem(null);
           }}
         />
-
         {/* кнопка добавить задачу */}
         <AddList colors={colors} addList={onAddList} />
       </div>
 
       <div className="todo__tasks">
-        {activeItem && (
-          <Task
-            list={activeItem}
-            onAddTaskInApp={onAddTask}
-            onDeleteTask={(activeList, taskObj) => {
-              onDeleteTask(activeList, taskObj);
-            }}
-          />
-        )}
+        <Route exact path="/">
+          {lists &&
+            lists.map((list) => (
+              <Task
+                key={list.id}
+                list={list}
+                onAddTaskInApp={onAddTask}
+                onDeleteTask={onDeleteTask}
+                withoutEmpty
+              />
+            ))}
+        </Route>
+        <Route path="/lists/:id">
+          {lists && activeItem && (
+            <Task
+              list={activeItem}
+              onAddTaskInApp={onAddTask}
+              onDeleteTask={(activeList, taskObj) => {
+                onDeleteTask(activeList, taskObj);
+              }}
+              onEditTitle={onEditListTitle}
+            />
+          )}
+        </Route>
       </div>
     </div>
   );

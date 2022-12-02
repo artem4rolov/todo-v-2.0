@@ -6,18 +6,18 @@
       "id": 1
     },
     {
-      "name": "4",
-      "colorId": 6,
+      "name": "Спорт",
+      "colorId": 3,
       "id": 2
     },
     {
-      "name": "6",
-      "colorId": 5,
+      "name": "Ютуб",
+      "colorId": 8,
       "id": 3
     },
     {
       "name": "1",
-      "colorId": 8,
+      "colorId": 2,
       "id": 4
     }
   ],
@@ -41,22 +41,22 @@
       "completed": true
     },
     {
-      "text": "1",
+      "text": "Анжуменя",
       "completed": false,
-      "listId": 1,
-      "id": 5
+      "listId": 2,
+      "id": 10
+    },
+    {
+      "text": "Глянуть ролик",
+      "completed": false,
+      "listId": 3,
+      "id": 11
     },
     {
       "text": "1",
       "completed": false,
       "listId": 2,
-      "id": 6
-    },
-    {
-      "text": "1",
-      "completed": false,
-      "listId": 4,
-      "id": 8
+      "id": 12
     }
   ],
   "colors": [
