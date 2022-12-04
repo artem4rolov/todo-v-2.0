@@ -14,9 +14,26 @@ export default function Task({
   onCompleteTask,
   withoutEmpty,
   onEditTitle,
+  onEditTaskText,
 }) {
   const [isChecked, setIsChecked] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const editTask = (task) => {
+    const newTaskText = window.prompt("Текст задачи", task.text);
+    if (newTaskText) {
+      axios
+        .patch(`http://localhost:3001/tasks/${task.id}`, {
+          text: newTaskText,
+        })
+        .then(() => {
+          onEditTaskText(list.id, task.id, newTaskText);
+        })
+        .catch(() => {
+          alert("Не удалось изменить текст задачи!");
+        });
+    }
+  };
 
   const editTitle = () => {
     const newTitle = window.prompt("Название списка", list.name);
@@ -85,10 +102,7 @@ export default function Task({
                     onChange={(e) => onChangeCheckbox(e, task)}
                     // onClick={() => checkOutTask(task)}
                   />
-                  <label
-                    htmlFor={`${task.id}`}
-                    // onClick={(e) => console.log(e.target)}
-                  >
+                  <label htmlFor={`${task.id}`}>
                     <svg
                       width="11"
                       height="8"
@@ -108,6 +122,12 @@ export default function Task({
                 </div>
 
                 <span className="task__block-item-text">{task.text}</span>
+                <img
+                  className="task__block-item-edit"
+                  onClick={() => editTask(task)}
+                  src={editSvg}
+                  alt="edit item"
+                />
                 <img
                   className="task__block-item-remove"
                   onClick={() => deleteTask(task)}

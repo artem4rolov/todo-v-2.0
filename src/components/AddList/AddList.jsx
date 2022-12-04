@@ -66,7 +66,7 @@ export default function AddList({ colors, addList }) {
             className="field"
             placeholder="Название списка"
             value={listName}
-            onInput={(e) => setListName(e.target.value)}
+            onChange={(e) => setListName(e.target.value)}
           />
           <div className="add__modal-colors">
             {colors

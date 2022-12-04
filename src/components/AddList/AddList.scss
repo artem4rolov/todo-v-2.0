@@ -130,3 +130,63 @@
     }
   }
 }
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+  .add__modal {
+    width: calc(100% - 5px);
+    height: 148px;
+
+    &-colors {
+      i {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .add__modal {
+    width: calc(100% - 5px);
+    height: 148px;
+
+    &-colors {
+      i {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .add__modal {
+    width: calc(100% - 5px);
+    height: 148px;
+
+    &-colors {
+      i {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  //
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  //
+}
+
+/* Small phones */
+@media (max-width: 320px) {
+  //
+}

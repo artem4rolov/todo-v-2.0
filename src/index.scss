@@ -9,6 +9,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// start scroll-bar
+*,
+html * /* override x.xhtml.ru style */ {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(205, 205, 205) orange;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: rgb(224, 224, 224);
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: rgb(181, 181, 181);
+  border-radius: 5px;
+  border: 2px solid rgb(255, 253, 253);
+}
+
+// end of scroll-bar
+
 .todo {
   position: absolute;
   height: calc(100vh - 100px);
@@ -29,7 +54,7 @@
     height: 100%;
     border-right: 1px solid #f1f1f1;
     // overflow: hidden;
-    // overflow-y: auto;
+    overflow-y: auto;
   }
 
   &__tasks {
@@ -82,5 +107,71 @@
 
   &:active {
     background: darken(#4dd599, 12%);
+  }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 70px;
+    }
+  }
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 50px;
+    }
+  }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .todo {
+    height: calc(100vh - 50px);
+    width: calc(100vw - 20px);
+
+    &__list {
+      width: 35%;
+      padding: 60px 20px;
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .todo {
+    height: calc(100vh - 20px);
+    width: calc(100vw - 20px);
+
+    &__list {
+      width: 35%;
+      padding: 20px 10px;
+    }
+  }
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 20px;
+    }
+  }
+}
+
+/* Small phones */
+@media (max-width: 320px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 20px;
+    }
   }
 }

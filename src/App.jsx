@@ -86,6 +86,21 @@ function App() {
       });
   };
 
+  const onEditTaskText = (listId, taskId, newText) => {
+    const newList = lists.map((list) => {
+      if (list.id === listId) {
+        list.tasks.map((task) => {
+          if (task.id === taskId) {
+            task.text = newText;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+  };
+
   const onEditListTitle = (id, title) => {
     const newList = lists.map((item) => {
       if (item.id === id) {
@@ -168,6 +183,8 @@ function App() {
                 onAddTaskInApp={onAddTask}
                 onDeleteTask={onDeleteTask}
                 onEditTitle={onEditListTitle}
+                onCompleteTask={onCompleteTask}
+                onEditTaskText={onEditTaskText}
                 withoutEmpty
               />
             ))}
@@ -180,6 +197,7 @@ function App() {
               onDeleteTask={onDeleteTask}
               onEditTitle={onEditListTitle}
               onCompleteTask={onCompleteTask}
+              onEditTaskText={onEditTaskText}
             />
           )}
         </Route>

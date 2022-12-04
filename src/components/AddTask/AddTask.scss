@@ -6,7 +6,7 @@
     margin-top: 20px;
     opacity: 0.5;
 
-    transition: opacity 0.15s ease-in-out;
+    // transition: opacity 0.15s ease-in-out;
 
     img {
       margin-left: 3px;
@@ -53,4 +53,34 @@
       }
     }
   }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+  //
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  //
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  //
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  //
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  //
+}
+
+/* Small phones */
+@media (max-width: 320px) {
+  //
 }
