@@ -186,10 +186,8 @@ html *::-webkit-scrollbar-thumb {
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
   .todo {
-    height: 100vh;
+    height: calc(100vh - 50px);
     width: 100vw;
-    padding: 0;
-
     &__list {
       width: 30%;
       padding: 20px 0px;
@@ -200,8 +198,9 @@ html *::-webkit-scrollbar-thumb {
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
   .todo {
+    height: calc(100vh - 50px);
+    width: 100vw;
     &__list {
-      $self: &;
       width: 60px;
       padding: 2px 7px 2px 8px;
       transition: width 0.15s ease-in-out;
@@ -284,6 +283,8 @@ html *::-webkit-scrollbar-thumb {
 /* Small phones */
 @media (max-width: 320px) {
   .todo {
+    height: calc(100vh - 50px);
+    width: 100vw;
     &__list {
       width: 60px;
     }
