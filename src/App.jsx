@@ -23,15 +23,18 @@ function App() {
   // при каждом обновлении lists (добавление, удаление, изменение списков), обновляем списки с задачами
   useEffect(() => {
     axios
-      .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
-
+      // .get("https://artem4rolov.github.io/dbapi/db.json/lists?_expand=color&_embed=tasks")
+      .get(
+        "https://my-json-server.typicode.com/artem4rolov/dbapi/lists?_expand=color&_embed=tasks"
+      )
       .then(({ data }) => setLists(data))
       .catch(() => {
         alert("Не удалось загрузить список дел!");
       });
 
     axios
-      .get("http://localhost:3001/colors")
+      // .get("http://localhost:3001/colors")
+      .get("https://my-json-server.typicode.com/artem4rolov/dbapi/colors")
       .then(({ data }) => setColors(data))
       .catch(() => {
         alert("Не удалось загрузить список цветов!");
@@ -87,9 +90,15 @@ function App() {
     });
     setLists(newList);
     axios
-      .patch(`http://localhost:3001/tasks/${taskId}`, {
-        completed,
-      })
+      // .patch(`http://localhost:3001/tasks/${taskId}`, {
+      //   completed,
+      // })
+      .patch(
+        `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${taskId}`,
+        {
+          completed,
+        }
+      )
       .catch(() => {
         alert("Не удалось обновить задачу!");
       });

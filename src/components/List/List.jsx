@@ -18,7 +18,11 @@ const List = ({ items, isRemovable, deleteList, onClickItem, activeItem }) => {
       setLoading(true);
       list.name = "Удаление...";
       axios
-        .delete("http://localhost:3001/lists/" + list.id)
+        // .delete("http://localhost:3001/lists/" + list.id)
+        .delete(
+          "https://my-json-server.typicode.com/artem4rolov/dbapi/lists/" +
+            list.id
+        )
         .then(() => {
           deleteList(list);
         })

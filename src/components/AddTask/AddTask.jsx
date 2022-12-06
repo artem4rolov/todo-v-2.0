@@ -25,7 +25,13 @@ export default function AddTask({ list, onAddInTask }) {
     setLoading(true);
 
     axios
-      .post(`http://localhost:3001/tasks/`, {
+      // .post(`http://localhost:3001/tasks/`, {
+      //   text: inputText,
+      //   completed: false,
+      //   listId: list.id,
+      // })
+      .post(`https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/`, {
+        id: Math.random(),
         text: inputText,
         completed: false,
         listId: list.id,

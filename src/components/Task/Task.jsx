@@ -23,9 +23,15 @@ export default function Task({
     const newTaskText = window.prompt("Текст задачи", task.text);
     if (newTaskText) {
       axios
-        .patch(`http://localhost:3001/tasks/${task.id}`, {
-          text: newTaskText,
-        })
+        // .patch(`http://localhost:3001/tasks/${task.id}`, {
+        //   text: newTaskText,
+        // })
+        .patch(
+          `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${task.id}`,
+          {
+            text: newTaskText,
+          }
+        )
         .then(() => {
           onEditTaskText(list.id, task.id, newTaskText);
         })
@@ -40,9 +46,15 @@ export default function Task({
     if (newTitle) {
       onEditTitle(list.id, newTitle);
       axios
-        .patch(`http://localhost:3001/lists/${list.id}`, {
-          name: newTitle,
-        })
+        // .patch(`http://localhost:3001/lists/${list.id}`, {
+        //   name: newTitle,
+        // })
+        .patch(
+          `https://my-json-server.typicode.com/artem4rolov/dbapi/lists/${list.id}`,
+          {
+            name: newTitle,
+          }
+        )
         .catch(() => {
           alert("Не удалось обновить название списка!");
         });
@@ -59,7 +71,10 @@ export default function Task({
       setIsLoading(true);
       task.text = "удаление...";
       axios
-        .delete(`http://localhost:3001/tasks/${task.id}`)
+        // .delete(`http://localhost:3001/tasks/${task.id}`)
+        .delete(
+          `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${task.id}`
+        )
         .then((data) => {
           // console.log(data);
           onDeleteTask(list, task);

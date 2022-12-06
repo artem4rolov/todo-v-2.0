@@ -23,7 +23,11 @@ export default function AddList({ colors, addList }) {
     setLoading(true);
 
     axios
-      .post("http://localhost:3001/lists", {
+      // .post("http://localhost:3001/lists", {
+      //   name: listName,
+      //   colorId: selectedColor,
+      // })
+      .post("https://my-json-server.typicode.com/artem4rolov/dbapi/lists", {
         name: listName,
         colorId: selectedColor,
       })
