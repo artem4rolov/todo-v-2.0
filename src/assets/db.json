@@ -14,11 +14,6 @@
       "name": "Ютуб",
       "colorId": 8,
       "id": 3
-    },
-    {
-      "name": "1",
-      "colorId": 2,
-      "id": 4
     }
   ],
   "tasks": [
@@ -26,7 +21,7 @@
       "id": 1,
       "listId": 1,
       "text": "Изучить JavaScript",
-      "completed": false
+      "completed": true
     },
     {
       "id": 2,
@@ -42,13 +37,13 @@
     },
     {
       "text": "ллл",
-      "completed": true,
+      "completed": false,
       "listId": 2,
       "id": 10
     },
     {
       "text": "Глянуть ролик",
-      "completed": false,
+      "completed": true,
       "listId": 3,
       "id": 11
     },
@@ -75,12 +70,6 @@
       "completed": false,
       "listId": 3,
       "id": 15
-    },
-    {
-      "text": "2",
-      "completed": false,
-      "listId": 1,
-      "id": 17
     },
     {
       "text": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",

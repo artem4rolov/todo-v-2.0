@@ -1,5 +1,5 @@
 .list {
-  &:first-child {
+  &:nth-child(2) {
     margin-bottom: 30px;
   }
 
@@ -44,6 +44,10 @@
       background: #ffffff;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
       border-radius: 4px;
+
+      img {
+        opacity: 0.5;
+      }
     }
 
     span {
@@ -87,7 +91,16 @@
 
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
-  //
+  .list {
+    &:nth-child(2) {
+      margin-bottom: 0px;
+    }
+
+    img {
+      width: 13px;
+      height: 13px;
+    }
+  }
 }
 
 /* Small phones */

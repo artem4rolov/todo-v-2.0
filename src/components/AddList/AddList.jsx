@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import classNames from "classnames";
 
 import addListSvg from "../../assets/img/add.svg";
 import closeSvg from "../../assets/img/close.svg";
@@ -60,44 +61,47 @@ export default function AddList({ colors, addList }) {
   return (
     <>
       {visibleModal ? (
-        <div className="add__modal">
-          <input
-            type="text"
-            className="field"
-            placeholder="Название списка"
-            value={listName}
-            onChange={(e) => setListName(e.target.value)}
-          />
-          <div className="add__modal-colors">
-            {colors
-              ? colors.map((color, index) => {
-                  return (
-                    <i
-                      key={color.id}
-                      // активный кружок с цветом
-                      className={`${color.name} ${
-                        selectedColor === color.id && "active"
-                      }`}
-                      // задаем в state активный цвет кружка
-                      onClick={() => setSelectedColor(color.id)}
-                    />
-                  );
-                })
-              : null}
+        <>
+          <div className="add__modal-blured"></div>
+          <div className="add__modal">
+            <input
+              type="text"
+              className="field"
+              placeholder="Название списка"
+              value={listName}
+              onChange={(e) => setListName(e.target.value)}
+            />
+            <div className="add__modal-colors">
+              {colors
+                ? colors.map((color, index) => {
+                    return (
+                      <i
+                        key={color.id}
+                        // активный кружок с цветом
+                        className={`${color.name} ${
+                          selectedColor === color.id && "active"
+                        }`}
+                        // задаем в state активный цвет кружка
+                        onClick={() => setSelectedColor(color.id)}
+                      />
+                    );
+                  })
+                : null}
+            </div>
+            <button
+              disabled={loading ? true : false}
+              onClick={() => onAddList()}
+              className="button"
+            >
+              {!loading ? "Добавить список" : "Добавление..."}
+            </button>
+            <img
+              onClick={() => onCloseModal()}
+              src={closeSvg}
+              alt="close modal"
+            />
           </div>
-          <button
-            disabled={loading ? true : false}
-            onClick={() => onAddList()}
-            className="button"
-          >
-            {!loading ? "Добавить список" : "Добавление..."}
-          </button>
-          <img
-            onClick={() => onCloseModal()}
-            src={closeSvg}
-            alt="close modal"
-          />
-        </div>
+        </>
       ) : (
         <div
           onClick={() => setVisibleModal(!visibleModal)}

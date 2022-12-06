@@ -6,16 +6,25 @@ import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
 import Task from "./components/Task/Task.jsx";
 
+import rightSvg from "./assets/img/right.svg";
+import lightSvg from "./assets/img/light.svg";
+import darkSvg from "./assets/img/dark.svg";
+
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(false);
+  const [mobileSidebar, setMobileSidebar] = useState(false);
+  const [theme, setTheme] = useState("light");
   let history = useHistory();
+
+  // https://my-json-server.typicode.com//artem4rolov/todo-v-2.0
 
   // при каждом обновлении lists (добавление, удаление, изменение списков), обновляем списки с задачами
   useEffect(() => {
     axios
       .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
+
       .then(({ data }) => setLists(data))
       .catch(() => {
         alert("Не удалось загрузить список дел!");
@@ -120,11 +129,21 @@ function App() {
     // console.log(history.location.pathname.split("lists/")[1]);
   }, [lists, history.location.pathname]);
 
-  // console.log(history);
+  const showMobileSidebar = () => {
+    setMobileSidebar(!mobileSidebar);
+  };
 
   return (
-    <div className="todo">
-      <div className="todo__list">
+    <div className={`todo ${theme ? "light" : "dark"}`}>
+      <div
+        className={`todo__list ${mobileSidebar ? "mobile__menu-show" : null}`}
+      >
+        <img
+          onClick={() => showMobileSidebar()}
+          src={rightSvg}
+          alt=""
+          className={`mobile__menu-btn ${mobileSidebar ? "rotate" : null}`}
+        />
         {/* кнопка Все задачи */}
         <List
           activeItem={activeItem}
@@ -171,9 +190,20 @@ function App() {
         />
         {/* кнопка добавить задачу */}
         <AddList colors={colors} addList={onAddList} />
+        <div className="switch__theme">
+          <img
+            onClick={() =>
+              setTimeout(() => {
+                setTheme(!theme);
+              }, 100)
+            }
+            src={theme ? lightSvg : darkSvg}
+            alt="theme"
+          />
+        </div>
       </div>
 
-      <div className="todo__tasks">
+      <div className={`todo__tasks ${mobileSidebar ? "blur" : null}`}>
         <Route exact path="/">
           {lists &&
             lists.map((list) => (

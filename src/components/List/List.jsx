@@ -3,6 +3,8 @@ import axios from "axios";
 
 import Badge from "../Badge/Badge";
 import removeSvg from "../../assets/img/remove.svg";
+// import rightSvg from "../../assets/img/right.svg";
+// import rightSvg from "./assets/img/right.svg";
 
 import "./List.scss";
 
