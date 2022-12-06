@@ -190,7 +190,7 @@ html *::-webkit-scrollbar-thumb {
     width: 100vw;
     &__list {
       width: 30%;
-      padding: 20px 0px;
+      padding: 20px 20px;
     }
   }
 }
@@ -201,13 +201,14 @@ html *::-webkit-scrollbar-thumb {
     height: calc(100vh - 50px);
     width: 100vw;
     &__list {
-      width: 60px;
-      padding: 2px 7px 2px 8px;
+      width: 80px;
+      padding: 30px 7px 10px 20px;
       transition: width 0.15s ease-in-out;
       overflow-x: hidden;
 
       ul > li {
         padding: 20px 12px;
+        margin-bottom: 15px;
       }
 
       span {
@@ -272,6 +273,7 @@ html *::-webkit-scrollbar-thumb {
 
     // затемняем и блюрим таски, пока открыто мобильное меню
     &__tasks {
+      padding: 20px 7px 10px 20px;
       &.blur {
         backdrop-filter: blur(10px);
         filter: brightness(20%);
@@ -286,7 +288,7 @@ html *::-webkit-scrollbar-thumb {
     height: calc(100vh - 50px);
     width: 100vw;
     &__list {
-      width: 60px;
+      width: 80px;
     }
   }
 }

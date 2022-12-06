@@ -19,10 +19,7 @@ const List = ({ items, isRemovable, deleteList, onClickItem, activeItem }) => {
       list.name = "Удаление...";
       axios
         // .delete("http://localhost:3001/lists/" + list.id)
-        .delete(
-          "https://my-json-server.typicode.com/artem4rolov/dbapi/lists/" +
-            list.id
-        )
+        .delete("https://empty-knowing-library.glitch.me/lists/" + list.id)
         .then(() => {
           deleteList(list);
         })

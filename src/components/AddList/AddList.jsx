@@ -27,7 +27,7 @@ export default function AddList({ colors, addList }) {
       //   name: listName,
       //   colorId: selectedColor,
       // })
-      .post("https://my-json-server.typicode.com/artem4rolov/dbapi/lists", {
+      .post("https://empty-knowing-library.glitch.me/lists", {
         name: listName,
         colorId: selectedColor,
       })

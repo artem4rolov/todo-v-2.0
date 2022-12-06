@@ -30,7 +30,7 @@ export default function AddTask({ list, onAddInTask }) {
       //   completed: false,
       //   listId: list.id,
       // })
-      .post(`https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/`, {
+      .post(`https://empty-knowing-library.glitch.me/tasks/`, {
         id: Math.random(),
         text: inputText,
         completed: false,

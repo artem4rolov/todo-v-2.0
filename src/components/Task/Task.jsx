@@ -26,12 +26,9 @@ export default function Task({
         // .patch(`http://localhost:3001/tasks/${task.id}`, {
         //   text: newTaskText,
         // })
-        .patch(
-          `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${task.id}`,
-          {
-            text: newTaskText,
-          }
-        )
+        .patch(`https://empty-knowing-library.glitch.me/tasks/${task.id}`, {
+          text: newTaskText,
+        })
         .then(() => {
           onEditTaskText(list.id, task.id, newTaskText);
         })
@@ -49,12 +46,9 @@ export default function Task({
         // .patch(`http://localhost:3001/lists/${list.id}`, {
         //   name: newTitle,
         // })
-        .patch(
-          `https://my-json-server.typicode.com/artem4rolov/dbapi/lists/${list.id}`,
-          {
-            name: newTitle,
-          }
-        )
+        .patch(`https://empty-knowing-library.glitch.me/lists/${list.id}`, {
+          name: newTitle,
+        })
         .catch(() => {
           alert("Не удалось обновить название списка!");
         });
@@ -72,9 +66,7 @@ export default function Task({
       task.text = "удаление...";
       axios
         // .delete(`http://localhost:3001/tasks/${task.id}`)
-        .delete(
-          `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${task.id}`
-        )
+        .delete(`https://empty-knowing-library.glitch.me/tasks/${task.id}`)
         .then((data) => {
           // console.log(data);
           onDeleteTask(list, task);

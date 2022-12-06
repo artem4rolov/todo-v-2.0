@@ -25,7 +25,7 @@ function App() {
     axios
       // .get("https://artem4rolov.github.io/dbapi/db.json/lists?_expand=color&_embed=tasks")
       .get(
-        "https://my-json-server.typicode.com/artem4rolov/dbapi/lists?_expand=color&_embed=tasks"
+        "https://empty-knowing-library.glitch.me/lists?_expand=color&_embed=tasks"
       )
       .then(({ data }) => setLists(data))
       .catch(() => {
@@ -34,7 +34,7 @@ function App() {
 
     axios
       // .get("http://localhost:3001/colors")
-      .get("https://my-json-server.typicode.com/artem4rolov/dbapi/colors")
+      .get("https://empty-knowing-library.glitch.me/colors")
       .then(({ data }) => setColors(data))
       .catch(() => {
         alert("Не удалось загрузить список цветов!");
@@ -93,12 +93,9 @@ function App() {
       // .patch(`http://localhost:3001/tasks/${taskId}`, {
       //   completed,
       // })
-      .patch(
-        `https://my-json-server.typicode.com/artem4rolov/dbapi/tasks/${taskId}`,
-        {
-          completed,
-        }
-      )
+      .patch(`https://empty-knowing-library.glitch.me/tasks/${taskId}`, {
+        completed,
+      })
       .catch(() => {
         alert("Не удалось обновить задачу!");
       });
