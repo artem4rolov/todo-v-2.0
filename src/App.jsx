@@ -1,15 +1,158 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Route, useHistory } from "react-router-dom";
 
+import AddList from "./components/AddList/AddList.jsx";
 import List from "./components/List/List.jsx";
+import Task from "./components/Task/Task.jsx";
+
+import rightSvg from "./assets/img/right.svg";
+import lightSvg from "./assets/img/light.svg";
+import darkSvg from "./assets/img/dark.svg";
 
 function App() {
+  const [lists, setLists] = useState(null);
+  const [colors, setColors] = useState(null);
+  const [activeItem, setActiveItem] = useState(false);
+  const [mobileSidebar, setMobileSidebar] = useState(false);
+  const [theme, setTheme] = useState("light");
+  let history = useHistory();
+
+  // https://my-json-server.typicode.com//artem4rolov/todo-v-2.0
+
+  // при каждом обновлении lists (добавление, удаление, изменение списков), обновляем списки с задачами
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
+
+      .then(({ data }) => setLists(data))
+      .catch(() => {
+        alert("Не удалось загрузить список дел!");
+      });
+
+    axios
+      .get("http://localhost:3001/colors")
+      .then(({ data }) => setColors(data))
+      .catch(() => {
+        alert("Не удалось загрузить список цветов!");
+      });
+  }, []);
+
+  const onAddList = (list) => {
+    const newList = [...lists, list];
+    setLists(newList);
+    // console.log(lists);
+  };
+
+  const onAddTask = (activeList, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === activeList.id) {
+        // проверяем, есть ли вообще массив tasks в конкретном списке list по id
+        if (item.tasks) {
+          // если есть - пихаем туда новую таску
+          item.tasks = [...item.tasks, taskObj];
+        } else {
+          // если нет таск в нашем списке - создаем ее, она будет первая
+          item.tasks = [taskObj];
+        }
+      }
+      return item;
+    });
+    setLists(newList);
+    // console.log(newList);
+  };
+
+  const onDeleteTask = (activeList, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === activeList.id) {
+        // выбираем только те дела, id которых не совпадает с тем, которое мы удаляем (все id, кроме taskObj.id)
+        item.tasks = item.tasks.filter((item) => item.id !== taskObj.id);
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+
+  const onCompleteTask = (listId, taskId, completed) => {
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks.map((task) => {
+          if (task.id === taskId) {
+            task.completed = completed;
+          }
+          return task;
+        });
+      }
+      return item;
+    });
+    setLists(newList);
+    axios
+      .patch(`http://localhost:3001/tasks/${taskId}`, {
+        completed,
+      })
+      .catch(() => {
+        alert("Не удалось обновить задачу!");
+      });
+  };
+
+  const onEditTaskText = (listId, taskId, newText) => {
+    const newList = lists.map((list) => {
+      if (list.id === listId) {
+        list.tasks.map((task) => {
+          if (task.id === taskId) {
+            task.text = newText;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+  };
+
+  const onEditListTitle = (id, title) => {
+    const newList = lists.map((item) => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+
+  useEffect(() => {
+    const listId = history.location.pathname.split("lists/")[1];
+    if (lists) {
+      const activeList = lists.find((list) => list.id === Number(listId));
+      setActiveItem(activeList);
+    }
+    // console.log(history.location.pathname.split("lists/")[1]);
+  }, [lists, history.location.pathname]);
+
+  const showMobileSidebar = () => {
+    setMobileSidebar(!mobileSidebar);
+  };
+
   return (
-    <div className="todo">
-      <div className="todo__list">
+    <div className={`todo ${theme ? "light" : "dark"}`}>
+      <div
+        className={`todo__list ${mobileSidebar ? "mobile__menu-show" : null}`}
+      >
+        <img
+          onClick={() => showMobileSidebar()}
+          src={rightSvg}
+          alt=""
+          className={`mobile__menu-btn ${mobileSidebar ? "rotate" : null}`}
+        />
         {/* кнопка Все задачи */}
         <List
+          activeItem={activeItem}
+          onClickItem={(list) => {
+            history.push("/");
+          }}
           items={[
             {
+              // active: true,
               name: "Все задачи",
               icon: (
                 <svg
@@ -31,17 +174,64 @@ function App() {
 
         {/* остальные списки */}
         <List
-          items={[
-            {
-              name: "первый",
-            },
-            {
-              name: "второй",
-            },
-          ]}
+          onClickItem={(list) => {
+            history.push(`/lists/${list.id}`);
+            // setActiveItem(list);
+          }}
+          activeItem={activeItem}
+          items={lists}
+          isRemovable
+          deleteList={(list) => {
+            const newList = lists.filter((item) => item.id !== list.id);
+            setLists(newList);
+            // устанавливаем активный список в null, чтобы не отображать задачи несуществующего списка
+            // setActiveItem(null);
+          }}
         />
+        {/* кнопка добавить задачу */}
+        <AddList colors={colors} addList={onAddList} />
+        <div className="switch__theme">
+          <img
+            onClick={() =>
+              setTimeout(() => {
+                setTheme(!theme);
+              }, 100)
+            }
+            src={theme ? lightSvg : darkSvg}
+            alt="theme"
+          />
+        </div>
       </div>
-      <div className="todo__tasks">todo tasks</div>
+
+      <div className={`todo__tasks ${mobileSidebar ? "blur" : null}`}>
+        <Route exact path="/">
+          {lists &&
+            lists.map((list) => (
+              <Task
+                key={list.id}
+                list={list}
+                onAddTaskInApp={onAddTask}
+                onDeleteTask={onDeleteTask}
+                onEditTitle={onEditListTitle}
+                onCompleteTask={onCompleteTask}
+                onEditTaskText={onEditTaskText}
+                withoutEmpty
+              />
+            ))}
+        </Route>
+        <Route path="/lists/:id">
+          {lists && activeItem && (
+            <Task
+              list={activeItem}
+              onAddTaskInApp={onAddTask}
+              onDeleteTask={onDeleteTask}
+              onEditTitle={onEditListTitle}
+              onCompleteTask={onCompleteTask}
+              onEditTaskText={onEditTaskText}
+            />
+          )}
+        </Route>
+      </div>
     </div>
   );
 }

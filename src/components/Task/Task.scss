@@ -1,0 +1,185 @@
+.task__block {
+  padding: 56px 56px 10px 56px;
+
+  &-title {
+    $self: &;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+
+    img {
+      display: block;
+      cursor: pointer;
+      margin-left: 15px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    h1 {
+      cursor: pointer;
+      font-family: "Montserrat";
+      font-weight: 700;
+      font-size: 32px;
+      color: #64c4ed;
+
+      padding-bottom: 15px;
+
+      &:hover + img {
+        opacity: 0.3;
+      }
+    }
+
+    &:hover img {
+      opacity: 0.7;
+    }
+  }
+
+  &-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+    &-text {
+      cursor: pointer;
+      word-break: break-all;
+      margin-left: 15px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #000000;
+      border: none;
+    }
+
+    &:hover {
+      img {
+        opacity: 0.2;
+
+        &:hover {
+          opacity: 0.5;
+        }
+
+        &:active {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-remove,
+    &-edit {
+      opacity: 0;
+
+      margin-left: 20px;
+
+      width: 13px;
+      height: 13px;
+
+      transition: opacity 0.09s ease-in-out;
+    }
+
+    &-check {
+      label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        // background: red;
+        border: 2px solid #e8e8e8;
+        border-radius: 50px;
+
+        transition: background 0.15s ease-in-out;
+
+        svg {
+          margin-left: 1px;
+          opacity: 0;
+
+          transition: stroke 0.13s ease-in-out;
+        }
+
+        &:hover {
+          background-color: #e8e8e8;
+
+          svg {
+            opacity: 0.3;
+          }
+        }
+      }
+
+      input {
+        display: none;
+
+        &:checked + label {
+          background: #4dd599;
+          border: 2px solid #4dd599;
+
+          svg {
+            opacity: 1;
+            path {
+              stroke: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+  //
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  //
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  //
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .task__block {
+    padding: 20px 20px;
+    margin-bottom: 15px;
+
+    &-item {
+      &-text {
+        margin-left: 7px;
+      }
+
+      &-remove,
+      &-edit {
+        margin-left: 7px;
+      }
+    }
+  }
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  .task__block {
+    padding: 2px 5px;
+
+    &-item {
+      &-text {
+        margin-left: 4px;
+      }
+
+      &-remove,
+      &-edit {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+/* Small phones */
+@media (max-width: 320px) {
+  //
+}

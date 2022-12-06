@@ -1,20 +1,44 @@
 * {
-  * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    outline: none;
-    // box-sizing: border-box;
-    font-family: "Roboto", -apple-system, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Roboto", "Lato", -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+// start scroll-bar
+*,
+html * /* override x.xhtml.ru style */ {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(205, 205, 205) orange;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: rgb(224, 224, 224);
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: rgb(181, 181, 181);
+  border-radius: 5px;
+  border: 2px solid rgb(255, 253, 253);
+}
+
+// end of scroll-bar
+
 .todo {
+  $self: &;
   position: absolute;
-  height: 530px;
-  width: 750px;
+  height: calc(100vh - 100px);
+  width: calc(100vw - 80px);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -23,15 +47,245 @@
   border-radius: 10px;
   border: 1px solid #f3f6f8;
 
+  &.dark {
+    #{$self}__list {
+      background-color: #d9d9d9;
+    }
+
+    #{$self}__tasks {
+      background-color: rgb(193, 193, 193);
+    }
+  }
+
   &__list {
     background-color: #f4f6f8;
     padding: 60px 20px;
     width: 200px;
-    height: calc(100% - 120px);
-    border-right: 1px solid #d5d5d5;
+    height: 100%;
+    border-right: 1px solid #f1f1f1;
+    overflow-y: auto;
+    transition: background 0.15s ease-in-out;
+
+    .mobile__menu-btn {
+      display: none;
+      visibility: none;
+    }
   }
 
   &__tasks {
     flex: 1;
+    position: relative;
+    overflow-y: auto;
+    transition: background 0.1s ease-in-out;
+
+    p {
+      font-family: "Montserrat";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-style: normal;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 39px;
+
+      color: #c9d1d3;
+    }
+  }
+
+  // анимация переключения темы оформления
+  .switch__theme {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      cursor: pointer;
+      opacity: 0.2;
+      width: 25px;
+      height: 25px;
+      transition: transform 0.55s ease;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      &:active {
+        transform: rotate(180deg);
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+.field {
+  background: #ffffff;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  padding: 8px 10px;
+
+  transition: border 0.15s ease-in-out;
+
+  &:focus {
+    border: 1px solid black;
+  }
+}
+
+.button {
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  // width: 200px;
+  height: 37px;
+  border: none;
+  background: #4dd599;
+  border-radius: 4px;
+
+  &:hover {
+    background: darken(#4dd599, 7%);
+  }
+
+  &:active {
+    background: darken(#4dd599, 12%);
+  }
+}
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 70px;
+    }
+  }
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .todo {
+    &__list {
+      width: 35%;
+      padding: 60px 50px;
+    }
+  }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .todo {
+    height: calc(100vh - 50px);
+    width: calc(100vw - 20px);
+
+    &__list {
+      width: 35%;
+      padding: 60px 20px;
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .todo {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+
+    &__list {
+      width: 30%;
+      padding: 20px 0px;
+    }
+  }
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  .todo {
+    &__list {
+      $self: &;
+      width: 60px;
+      padding: 2px 7px 2px 8px;
+      transition: width 0.15s ease-in-out;
+      overflow-x: hidden;
+
+      ul > li {
+        padding: 20px 12px;
+      }
+
+      span {
+        display: none;
+      }
+
+      li > img {
+        display: none;
+      }
+
+      // при закрытом мобильном меню делаем + добавить задачу (саму иконку +) больше
+      div > img {
+        width: 17px;
+        height: 17px;
+        margin-top: 50px;
+      }
+
+      // при открытом сайдбаре на мобильном
+      &.mobile__menu-show {
+        width: 250px;
+        overflow-x: auto;
+
+        // показываем все надписи списков
+        span {
+          display: block;
+        }
+
+        // показываем все крестики
+        img {
+          display: block;
+        }
+
+        // возвращаем нужный внутренний отступ
+        ul > li {
+          padding: 10px 12px;
+        }
+
+        // возвращаем стили для кнопки + (добавить задачу)
+        div > img {
+          margin-top: 0;
+        }
+      }
+
+      .mobile__menu-btn {
+        cursor: pointer;
+        margin: 10px 6px 6px 10px;
+        display: block;
+        width: 20px;
+        height: 20px;
+        opacity: 0.5;
+        transition: opacity 0.15s ease-in-out, transform 0.25s ease-in-out;
+
+        &:hover {
+          opacity: 0.7;
+        }
+
+        &.rotate {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    // затемняем и блюрим таски, пока открыто мобильное меню
+    &__tasks {
+      &.blur {
+        backdrop-filter: blur(10px);
+        filter: brightness(20%);
+      }
+    }
+  }
+}
+
+/* Small phones */
+@media (max-width: 320px) {
+  .todo {
+    &__list {
+      width: 60px;
+    }
   }
 }
